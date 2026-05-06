@@ -1,6 +1,7 @@
 package com.example.demo.models;
 
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 public class NutritionRequest {
     @NotBlank // Not empty

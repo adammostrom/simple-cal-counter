@@ -1,9 +1,16 @@
 package com.example.demo.controller;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.models.NutritionRequest;
 import com.example.demo.models.NutritionResponse;
 import com.example.demo.service.NutritionService;
-import org.springframework.web.bind.annotation.*;
+
+// For the @valid
+import jakarta.validation.Valid;
 
 /*
 Any request to /nutrition comes here.
