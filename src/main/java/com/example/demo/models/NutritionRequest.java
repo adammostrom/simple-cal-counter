@@ -1,36 +1,46 @@
 package com.example.demo.models;
 
+
+
 public class NutritionRequest {
+    @NotBlank // Not empty
     private String resource;
-    private Double amount;
-    private String unit; // grams, decilitre, cups...
+    
+    @Positive // Not negative
+    private double amount;
+
+    @NotBlank
+    private Unit unit; // grams, decilitre, cups...
 
 
     public NutritionRequest(){
 
     }
 
-    public String GetResource(){
+    
+    public String getResource(){
         return this.resource;
     }
-    public Double GetAmount(){
+    
+    public double getAmount(){
         return this.amount;
     }
-    public String GetUnit(){
+    public Unit getUnit(){
         return this.unit;
     }
 
 
-    public void SetResource(String resource){
+    public void setResource(String resource){
         this.resource = resource;
     }
-    public void SetAmount(Double amount){
+    public void setAmount(double amount){
         this.amount = amount;
     }
-    public void SetUnit(String unit){
+    public void setUnit(Unit unit){
         this.unit = unit;
     }
     
 
 
 }
+
