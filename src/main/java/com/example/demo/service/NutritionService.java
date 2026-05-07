@@ -13,6 +13,14 @@ public class NutritionService {
 
     private NutritionRepository repo;
 
+    public NutritionService(NutritionRepository repo) {
+        this.repo = repo;
+    }
+
+    public NutritionResponse get(String name) {
+        return repo.find(name);
+    }
+
 
 
     public NutritionResponse calculate(String resource, double amount, Unit unit) {
@@ -22,14 +30,10 @@ public class NutritionService {
         // fetch resource (like oats)
 
         // return nutritional value
-        // fake data per 100g
-/*         double caloriesPer100g = 52; // apple
-        double proteinPer100g = 0.3;
-        double carbsPer100g = 14;
-        double fatPer100g = 0.2; */
 
 
-        NutritionResponse resp = repo.find(resource);
+        NutritionResponse resp = get(resource);
+
 
         double grams = convertToGrams(amount, unit);
 
@@ -48,7 +52,7 @@ public class NutritionService {
     private double convertToGrams(double amount, Unit unit) {
         switch (unit) {
             case GRAM: return amount;
-            case DCL: return amount * 100;   // rough assumption
+            case DL: return amount * 100;   // rough assumption, based on density, viscosity etc. Add functions for this
             case CUPS: return amount * 240; // rough
             default: throw new IllegalArgumentException("Unknown unit");
         }

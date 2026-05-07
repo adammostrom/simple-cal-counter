@@ -61,6 +61,7 @@ public class NutritionController {
     @PostMapping // HTTP POST Request
     public NutritionResponse getNutrition(@Valid @RequestBody NutritionRequest request) {
 
+
         return service.calculate(
             request.getResource(),
             request.getAmount(),

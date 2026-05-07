@@ -10,7 +10,7 @@ public class NutritionRequest {
     @Positive // Not negative
     private double amount;
 
-    @NotBlank
+    //@NotBlank -> Only works on string
     private Unit unit; // grams, decilitre, cups...
 
 
