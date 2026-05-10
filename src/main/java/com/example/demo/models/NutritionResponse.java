@@ -20,7 +20,7 @@ public class NutritionResponse {
         this.fat = fat;
     }
 
-    public String getResouce() {
+    public String getResource() {
         return this.resource;
     }
     public double getCalories() {

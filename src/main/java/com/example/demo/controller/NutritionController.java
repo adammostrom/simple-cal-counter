@@ -62,7 +62,7 @@ public class NutritionController {
     public NutritionResponse getNutrition(@Valid @RequestBody NutritionRequest request) {
 
 
-        return service.calculate(
+        return service.get(
             request.getResource(),
             request.getAmount(),
             request.getUnit()
