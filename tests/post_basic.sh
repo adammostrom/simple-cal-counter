@@ -3,5 +3,5 @@ curl -X POST http://localhost:8080/nutrition \
 -d '{
 	"ingredient": "apple",
 	"amount": 200,
-	"unit": "g"
+	"unit": "GRAM"
 }'

@@ -56,7 +56,7 @@ public class NutritionService {
         }
     
         // Check API.
-        //nutrition = api.fetch(name);
+        nutrition = api.fetch(name);
         if (nutrition != null) {
             cache.store(nutrition);
             repo.addEntry(nutrition);        
@@ -69,7 +69,6 @@ public class NutritionService {
         // Add more eventually
         return name.toLowerCase().trim();
     }
-
 
 
     public NutritionResponse calculate(NutritionResponse nutrition, double amount, Unit unit) {
