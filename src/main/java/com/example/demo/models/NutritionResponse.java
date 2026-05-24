@@ -12,12 +12,12 @@ public class NutritionResponse {
 
 
 
-    public NutritionResponse(String resource, double calories, double protein, double carbs, double fat) {
-        this.resource = resource;
+    public NutritionResponse() {
+/*         this.resource = resource;
         this.calories = calories;
         this.protein = protein;
         this.carbs = carbs;
-        this.fat = fat;
+        this.fat = fat; */
     }
 
     public String getResource() {
@@ -36,7 +36,7 @@ public class NutritionResponse {
         return this.fat;
     }
 
-    public void setResouce(String resource) {
+    public void setResource(String resource) {
         this.resource = resource;
     }
     public void setCalories(double calories) {

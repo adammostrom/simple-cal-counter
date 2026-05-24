@@ -1,9 +1,12 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.api.NutritionApi;
 import com.example.demo.api.NutritionRepository;
+import com.example.demo.models.NutritionProduct;
 import com.example.demo.models.NutritionResponse;
 import com.example.demo.models.Unit;
 
@@ -34,6 +37,17 @@ public class NutritionService {
         }
     }
 
+
+    public List<NutritionProduct> test_find(String name){
+
+        System.out.println("SERVICE HIT");
+
+        List<NutritionProduct> products = repo.find(name);
+
+        return products;
+        
+    }
+
     public NutritionResponse fetchAndStore(String raw_name) {
         
         // NOrmalize name first: clean up etc.
@@ -48,7 +62,8 @@ public class NutritionService {
         }
         
         // Not found in cahce, check db
-        nutrition = repo.find(name);
+        // fetchAndStore should only apply for full fetching
+        //nutrition = repo.find(name);
         
         if (nutrition != null) {
             cache.store(nutrition);
@@ -85,11 +100,6 @@ public class NutritionService {
 
         // TODO: Handle this factor here? Or just return the fetched Nutrition Response, alternatively decide how to convert between units
         return new NutritionResponse(
-                nutrition.getResource(),
-                nutrition.getCalories() * factor,
-                nutrition.getProtein() * factor,
-                nutrition.getCarbs() * factor,
-                nutrition.getFat() * factor
         );
     }
 
