@@ -1,13 +1,13 @@
 package com.example.demo.api;
 
+
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.models.CalorieDTO;
+import com.example.demo.models.Field;
 import com.example.demo.models.NutritionProduct;
-import com.example.demo.models.NutritionResponse;
 
 
 @Repository
@@ -26,39 +26,86 @@ public class FoodRepository implements NutritionRepository{
 
 
 
-    public boolean addEntry(NutritionResponse entry){
-        return false;// TODO
+    // 	stmt := `INSERT INTO Issues(title, external_ref, description, active, progress) VALUES (?, ?, ?, ?, ?)`
+    public boolean addEntry(NutritionProduct p, String table){
+        
+        StringBuilder fields = new StringBuilder("product_name");
+        StringBuilder placeholders = new StringBuilder("?");
+
+        for(Field f : Field.values()){
+            fields.append(",").append(f.getDbColumn());
+            placeholders.append(",?");
+        }
+
+        String query = "INSERT INTO " + table + " (" + fields + ") VALUES (" + placeholders + ")";
+
+        int rows = jdbc.update(query,
+                    p.getName(),
+                    p.getEnergy_kcal(),
+                    p.getFat(),
+                    p.getSaturated_fat(),
+                    p.getTrans_fat(),
+                    p.getCholesterol(),
+                    p.getCarbohydrates(),
+                    p.getSugars(),
+                    p.getAdded_sugars(),
+                    p.getSucrose(),
+                    p.getGlucose(),
+                    p.getFructose(),
+                    p.getLactose(),
+                    p.getStarch(),
+                    p.getFiber(),
+                    p.getProteins(),
+                    p.getSalt(),
+                    p.getAdded_salt(),
+                    p.getSodium(),
+                    p.getVitamin_c(),
+                    p.getVitamin_b1(),
+                    p.getVitamin_b2(),
+                    p.getVitamin_pp(),
+                    p.getVitamin_b6(),
+                    p.getVitamin_b9(),
+                    p.getVitamin_b12(),
+                    p.getPotassium(),
+                    p.getCalcium(),
+                    p.getIron(),
+                    p.getMagnesium(),
+                    p.getZinc()
+        );
+        // Insert succeeded
+        return rows == 1;
     }
 
-public List<CalorieDTO> findCalories_DTO(String prod_name) {
-
-    String query = """
-                SELECT product_name, energy_kcal_100g
-                FROM openfood_raw
-                WHERE product_name ILIKE ?
-                LIMIT 50
-                """;
-    return jdbc.query(
-        query,
-        (rs, rowNum) -> new CalorieDTO(
-            rs.getString("product_name"),
-            rs.getDouble("energy_kcal_100g")
-        ),
-        "%" + prod_name + "%"
-    );
-}
 
 
-public List<NutritionProduct> find(String product_name){
+    /*
+    QUERIES:
+
+    To get everythign that resembles the input value, prefering shorter over longer, and with input value in the beginning
+            SELECT *
+        FROM openfood_raw
+        WHERE LOWER(product_name) LIKE LOWER(?)
+        ORDER BY
+            CASE
+                WHEN LOWER(product_name) = LOWER(?) THEN 0
+                ELSE 1
+            END,
+            POSITION(LOWER(?) IN LOWER(product_name)),
+            LENGTH(product_name)
+        LIMIT 50
+
+
+    Get everything matching the input value, ignoring case
+SELECT *
+FROM openfood_raw
+WHERE LOWER(product_name) = LOWER(?)
+    */
+
+public List<NutritionProduct> find(String product_name, String table){
 
     System.out.println("REPO HIT");
     
-    String query = """
-        SELECT *
-        FROM openfood_raw
-        WHERE product_name ILIKE ?
-        LIMIT 50
-    """;
+    String query = " SELECT * FROM " + table + " WHERE LOWER(product_name) = LOWER(?)";
         List <NutritionProduct> products = jdbc.query(
             query,
             (rs, rowNum) -> {
@@ -98,9 +145,9 @@ public List<NutritionProduct> find(String product_name){
 
                 return p;
             },
-            "%" + product_name + "%"
+            product_name
             );
-            System.out.print("Fetched ok\n");
+            System.out.print("[REPO] Fetched ok\n");
             return products;
     }
 }

@@ -5,14 +5,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
 
-import com.example.demo.models.NutritionResponse;
+import com.example.demo.models.NutritionProduct;
 
 @Component
 public class NutritionCache {
 
 
 
-    private Map<String, NutritionResponse> cache = new ConcurrentHashMap<>();
+    private Map<String, NutritionProduct> cache = new ConcurrentHashMap<>();
 
 
     public NutritionCache(){
@@ -20,15 +20,22 @@ public class NutritionCache {
     }
     
 
-    public NutritionResponse fetch(String name){
+    public NutritionProduct fetch(String name){
         if(!cache.containsKey(name)){
             return null;
             //throw new IllegalArgumentException("name not found: " +  name);
         }
-        return cache.get(name);
+        NutritionProduct nutrition = cache.get(name);
+        System.out.printf("Cache returned. Name: %s. ID: %d \n", name, nutrition.getId(), nutrition);
+        return nutrition;
     }
 
-    public void store(NutritionResponse nutrition) {
-        cache.put(nutrition.getResource(), nutrition);
+    public void store(NutritionProduct nutrition) {
+        cache.put(nutrition.getName(), nutrition);
+
+        if (cache.containsKey(nutrition.getName())){
+            System.out.printf("Cache Stored. Name: %s. ID: %d \n", nutrition.getName(), nutrition.getId(), nutrition);
+
+        }
     }
 }

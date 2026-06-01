@@ -5,6 +5,14 @@ import java.util.function.Consumer;
 // DTO: Data Transfer Object
 // its only job is to carry data
 // Double = nullable (wrapper for double)
+
+/*
+TODO: Could be good to transform into map structure:
+
+name:
+Map<String, Double> fields;
+
+*/
 public class NutritionProduct {
 
         private int id;
@@ -46,7 +54,58 @@ public class NutritionProduct {
         setter.accept(value);
     }
 
+    // Not the most elegant solution but w/e
+    public int countNullFields() {
+        int count = 0;
 
+        if (product_name == null) count++;
+        if (energy_kcal_100g == null) count++;
+        if (fat_100g == null) count++;
+        if (saturated_fat_100g == null) count++;
+        if (trans_fat_100g == null) count++;
+        if (cholesterol_100g == null) count++;
+        if (carbohydrates_100g == null) count++;
+        
+        if (sugars_100g == null) count++;
+        if (added_sugars_100g == null) count++;
+        if (sucrose_100g == null) count++;
+        if (glucose_100g == null) count++;
+        if (fructose_100g == null) count++;
+        if (lactose_100g == null) count++;
+
+        if (starch_100g == null) count++;  
+        if (fiber_100g == null) count++;
+        if (proteins_100g == null) count++;
+        if (salt_100g == null) count++;
+        if (added_salt_100g == null) count++;
+        if (sodium_100g == null) count++;
+        if (vitamin_c_100g == null) count++;
+        
+        if (vitamin_b1_100g == null) count++;  
+        if (vitamin_b2_100g == null) count++;
+        if (vitamin_pp_100g == null) count++;
+        if (vitamin_b6_100g == null) count++;
+        if (vitamin_b9_100g == null) count++;
+        if (vitamin_b12_100g == null) count++;
+        if (potassium_100g == null) count++;
+        if (calcium_100g == null) count++;
+
+        if (iron_100g == null) count++;
+        if (magnesium_100g == null) count++;
+        if (zinc_100g == null) count++;
+
+    return count;
+}
+
+
+    
+    public String returnAsCommaSeparatedString(){
+        String data = getName();
+        for (Field f : Field.values()){
+            data += "," + f.get(this).toString();
+        }
+        return data + "\n";
+    }
 
 
     public void setId(int id){

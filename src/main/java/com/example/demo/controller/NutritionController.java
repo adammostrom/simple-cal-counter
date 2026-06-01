@@ -1,14 +1,12 @@
 package com.example.demo.controller;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.models.NutritionProduct;
-import com.example.demo.models.NutritionRequest;
+import com.example.demo.models.NutritionResponse;
+import com.example.demo.models.ProductRequest;
 import com.example.demo.service.NutritionService;
 
 // For the @valid
@@ -60,24 +58,12 @@ public class NutritionController {
         - validation-heavy input
         - future extensibility
     */ 
-    //@PostMapping // HTTP POST Request
-/*     public NutritionResponse getNutrition(@Valid @RequestBody NutritionRequest request) {
+    @PostMapping // HTTP POST Request
+    public NutritionResponse getNutrition(@Valid @RequestBody ProductRequest request) {
 
 
-        return service.get(
-            request.getResource(),
-            request.getAmount(),
-            request.getUnit()
-        );
-    } */
-
-    @PostMapping
-    public List<NutritionProduct> testGetNutrition(@Valid @RequestBody NutritionRequest request){
-
-        System.out.println("CONTROLLER HIT");
-        List <NutritionProduct> products = service.test_find(request.getResource());
-
-        return products;
+        return service.get(request.product_name(), request.amount(), request.unit(), request.fields());
     }
+
 }
 
