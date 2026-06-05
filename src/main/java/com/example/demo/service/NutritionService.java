@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -94,7 +93,7 @@ public class NutritionService {
             NutritionProduct nutrition = cache.fetch(normalize(name));
             if (nutrition == null) {
                 // Check DB
-                nutrition = fetchDB(normalize(raw), fields);
+                nutrition = geNutritionProduct(normalize(raw), fields);
                 if (nutrition == null){
                     // Check api, then ->
                     throw new IllegalArgumentException("Item not found: " + raw);
@@ -113,47 +112,25 @@ public class NutritionService {
         }
     }
 
-    private List <NutritionProduct> eliminateMissingRequestFields(List<NutritionProduct> nutritions, Set<Field> fields){
-        Iterator<NutritionProduct> it = nutritions.iterator();
 
-        while (it.hasNext()) {
-            NutritionProduct p = it.next();
-
-            boolean valid = true;
-
-            for (Field f : fields) {
-                    Function<NutritionProduct, Double> extractor = FIELD_MAP.get(f);
-
-                if (extractor == null || extractor.apply(p) == null) {
-                    valid = false;
-                    break;
-                }
-            }
-
-            if (!valid) {
-                System.out.println("Removed: " + p.getName());
-                it.remove();
-            }
-        }
-        return nutritions;
-    }
-
-    public NutritionProduct fetchDB(String raw_name, Set<Field> fields) {
+    public NutritionProduct geNutritionProduct(String raw_name, Set<Field> fields) {
 
         // First, check if median exists:
         // TODO: Refactor, its a bit ugly and unstable
-        List <NutritionProduct> nutritions = new ArrayList<NutritionProduct>();
         
-        nutritions = repo.find(raw_name, "openfood_median");
+        List <NutritionProduct>  nutritions = repo.findMedian(raw_name);
         if (!nutritions.isEmpty()){
         
             System.out.printf("\nFound median-computed entry: %d\n", nutritions.size());
             // The median table SHOULD only return one value
             return nutritions.get(0);
         }
-        nutritions.clear();
         // fetchAndStore should only apply for full fetching
-        nutritions = repo.find(raw_name, "openfood_raw");
+        nutritions = repo.findRaw(raw_name);
+        if (nutritions.isEmpty()){
+            System.out.printf("No entries for %s found.\n", raw_name);
+            return null;
+        }
 
         System.out.printf("Found %d rows\n", nutritions.size());
 

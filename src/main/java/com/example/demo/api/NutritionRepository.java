@@ -6,6 +6,9 @@ import com.example.demo.models.NutritionProduct;
 
 // Database interface
 public interface NutritionRepository {
-    List<NutritionProduct>find(String prod_name, String table);
+
+    List<NutritionProduct>findMedian(String prod_name);
+    List<NutritionProduct>findRaw(String prod_name);
+
     boolean addEntry(NutritionProduct entry, String table);
 }
