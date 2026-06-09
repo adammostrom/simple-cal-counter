@@ -102,7 +102,7 @@ public class NutritionProduct {
     public String returnAsCommaSeparatedString(){
         String data = getName();
         for (Field f : Field.values()){
-            data += "," + f.get(this).toString();
+            data += (f.get(this) == null) ? ",null" : "," + f.get(this).toString();
         }
         return data + "\n";
     }

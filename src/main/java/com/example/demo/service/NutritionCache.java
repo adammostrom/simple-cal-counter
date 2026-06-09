@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Component;
@@ -20,14 +21,12 @@ public class NutritionCache {
     }
     
 
-    public NutritionProduct fetch(String name){
+    public Optional <NutritionProduct> fetch(String name){
         if(!cache.containsKey(name)){
-            return null;
-            //throw new IllegalArgumentException("name not found: " +  name);
+            return Optional.empty();
         }
-        NutritionProduct nutrition = cache.get(name);
-        System.out.printf("Cache returned. Name: %s. ID: %d \n", name, nutrition.getId(), nutrition);
-        return nutrition;
+        //System.out.printf("Cache returned. Name: %s. ID: %d \n", name, nutrition.getId(), nutrition);
+        return Optional.of(cache.get(name)); 
     }
 
     public void store(NutritionProduct nutrition) {
@@ -36,6 +35,9 @@ public class NutritionCache {
         if (cache.containsKey(nutrition.getName())){
             System.out.printf("Cache Stored. Name: %s. ID: %d \n", nutrition.getName(), nutrition.getId(), nutrition);
 
+        } else {
+            System.out.printf("Failed to store %s with id %d in cache.\n", nutrition.getName(), nutrition.getId());
         }
+        return;
     }
 }

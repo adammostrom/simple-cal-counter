@@ -8,6 +8,7 @@ openfoodfacts*
 .issuetracker/*
 issuetracker*
 /tests/*
+/docs/*
 
 ### STS ###
 .apt_generated

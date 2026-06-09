@@ -53,38 +53,3 @@ public enum Field {
     }
 }
 
-
-/*
-  product_name
-  energy_kcal_100
-  fat_100
-  saturated_fat_100g
-  trans_fat_100g
-  cholesterol_100g
-  carbohydrates_100g
-  sugars_100g
-  added_sugars_100g
-  sucrose_100g
-  glucose_100g
-  fructose_100g
-  lactose_100g
-  starch_100g
-  fiber_100g
-  proteins_100g
-  salt_100g
-  added_salt_100g
-  sodium_100g
-  vitamin_c_100g
-  vitamin_b1_100g
-  vitamin_b2_100g
-  vitamin_pp_100g
-  vitamin_b6_100g
-  vitamin_b9_100g
-  vitamin_b12_100g
-  potassium_100g
-  calcium_100g
-  iron_100g
-  magnesium_100g
-  zinc_100g
-
-*/
