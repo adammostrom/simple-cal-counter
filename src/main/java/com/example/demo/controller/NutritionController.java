@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,9 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.models.NutritionResponse;
 import com.example.demo.models.ProductRequest;
 import com.example.demo.service.NutritionService;
-
-// For the @valid
-import jakarta.validation.Valid;
 
 /*
 Any request to /nutrition comes here.
@@ -58,12 +56,21 @@ public class NutritionController {
         - validation-heavy input
         - future extensibility
     */ 
-    @PostMapping // HTTP POST Request
-    public NutritionResponse getNutrition(@Valid @RequestBody ProductRequest request) {
+    @PostMapping
+    public ResponseEntity<NutritionResponse> getNutrition( @RequestBody ProductRequest request) {
+
+    NutritionResponse response = service.get(request);
 
 
-        return service.get(request.product_name(), request.amount(), request.unit(), request.fields());
-    }
+    System.out.println("REQUEST:");
+    System.out.println(request);
+
+
+    return ResponseEntity.ok(response);
+}
+
+
+    // Todo: validate json format
 
 }
 

@@ -126,7 +126,6 @@ public List<NutritionProduct> find(String product_name, String table){
                 },
                 product_name
                 );
-                System.out.print("[REPO] Fetched ok\n");
                 return products;
     }
 }

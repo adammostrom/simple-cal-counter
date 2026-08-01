@@ -1,7 +1,7 @@
 curl -X POST http://localhost:8080/nutrition \
 -H "Content-Type: application/json" \
 -d '{
-	"product_name": "Totopos",
+	"product_name": "Potato",
 	"amount": 200,
 	"unit": "GRAM",
 	"fields": ["CALORIES", "FAT", "SATURATED_FAT", "TRANS_FAT", "CHOLESTEROL", "CARBOHYDRATES", "SUGARS"

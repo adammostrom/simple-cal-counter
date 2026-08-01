@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Simple Nutrition</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+
+    <h1>Simple Nutrition Search</h1>
+
+    <input
+        type="text"
+        id="product"
+        placeholder="Search food">
+    
+    <button onclick="searchNutrition()">
+        Search
+    </button>
+    <input
+        type="number"
+        id="amount"
+        placeholder="Input Amount (result based on per 100g)">
+<fieldset class="nutrition-grid">
+    <legend>Select Nutrition Values</legend>
+
+    <input type="checkbox" id="calories" value="CALORIES"><label class="chip" for="calories">Calories</label>
+    <input type="checkbox" id="fat" value="FAT"><label class="chip" for="fat">Fat</label>
+    <input type="checkbox" id="saturated_fat" value="SATURATED_FAT"><label class="chip" for="saturated_fat">Saturated Fat</label>
+    <input type="checkbox" id="trans_fat" value="TRANS_FAT"><label class="chip" for="trans_fat">Trans Fat</label>
+    <input type="checkbox" id="cholesterol" value="CHOLESTEROL"><label class="chip" for="cholesterol">Cholesterol</label>
+    <input type="checkbox" id="carbohydrates" value="CARBOHYDRATES"><label class="chip" for="carbohydrates">Carbohydrates</label>
+    <input type="checkbox" id="sugars" value="SUGARS"><label class="chip" for="sugars">Sugars</label>
+    <input type="checkbox" id="added_sugars" value="ADDED_SUGARS"><label class="chip" for="added_sugars">Added Sugars</label>
+    <input type="checkbox" id="sucrose" value="SUCROSE"><label class="chip" for="sucrose">Sucrose</label>
+    <input type="checkbox" id="glucose" value="GLUCOSE"><label class="chip" for="glucose">Glucose</label>
+    <input type="checkbox" id="fructose" value="FRUCTOSE"><label class="chip" for="fructose">Fructose</label>
+    <input type="checkbox" id="lactose" value="LACTOSE"><label class="chip" for="lactose">Lactose</label>
+    <input type="checkbox" id="starch" value="STARCH"><label class="chip" for="starch">Starch</label>
+    <input type="checkbox" id="fiber" value="FIBER"><label class="chip" for="fiber">Fiber</label>
+    <input type="checkbox" id="proteins" value="PROTEINS"><label class="chip" for="proteins">Protein</label>
+    <input type="checkbox" id="salt" value="SALT"><label class="chip" for="salt">Salt</label>
+    <input type="checkbox" id="added_salt" value="ADDED_SALT"><label class="chip" for="added_salt">Added Salt</label>
+    <input type="checkbox" id="sodium" value="SODIUM"><label class="chip" for="sodium">Sodium</label>
+    <input type="checkbox" id="vitamin_c" value="VITAMIN_C"><label class="chip" for="vitamin_c">Vitamin C</label>
+    <input type="checkbox" id="vitamin_b1" value="VITAMIN_B1"><label class="chip" for="vitamin_b1">Vitamin B1</label>
+    <input type="checkbox" id="vitamin_b2" value="VITAMIN_B2"><label class="chip" for="vitamin_b2">Vitamin B2</label>
+    <input type="checkbox" id="vitamin_pp" value="VITAMIN_PP"><label class="chip" for="vitamin_pp">Vitamin PP</label>
+    <input type="checkbox" id="vitamin_b6" value="VITAMIN_B6"><label class="chip" for="vitamin_b6">Vitamin B6</label>
+    <input type="checkbox" id="vitamin_b9" value="VITAMIN_B9"><label class="chip" for="vitamin_b9">Vitamin B9 (Folate)</label>
+    <input type="checkbox" id="vitamin_b12" value="VITAMIN_B12"><label class="chip" for="vitamin_b12">Vitamin B12</label>
+    <input type="checkbox" id="potassium" value="POTASSIUM"><label class="chip" for="potassium">Potassium</label>
+    <input type="checkbox" id="calcium" value="CALCIUM"><label class="chip" for="calcium">Calcium</label>
+    <input type="checkbox" id="iron" value="IRON"><label class="chip" for="iron">Iron</label>
+    <input type="checkbox" id="magnesium" value="MAGNESIUM"><label class="chip" for="magnesium">Magnesium</label>
+    <input type="checkbox" id="zinc" value="ZINC"><label class="chip" for="zinc">Zinc</label>
+</fieldset>
+
+
+<div id="result"></div>
+
+<div id="error-message"></div>
+    <script src="/js/app.js"></script>
+</body>
+</html>

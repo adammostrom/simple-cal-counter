@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +29,11 @@ import org.springframework.stereotype.Service;
 import com.example.demo.api.NutritionApi;
 import com.example.demo.api.NutritionRepository;
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.exception.ValidationException;
 import com.example.demo.models.Field;
 import com.example.demo.models.NutritionProduct;
 import com.example.demo.models.NutritionResponse;
-import com.example.demo.models.Unit;
+import com.example.demo.models.ProductRequest;
 
 
 @Service
@@ -53,33 +56,65 @@ public class NutritionService {
 
 
     // TODO: Maybe add nutritionrequest here instead (POST request) with fields to get
-    public NutritionResponse get(String raw, double amount, Unit unit, Set<Field> fields) {
-
-        // Add validation for request?
-
-        String name = normalize(raw);
-        try {
-            
+    public NutritionResponse get(ProductRequest request) {
+    
+            validateRequest(request);
+    
+            String name = normalize(request.product_name());
+    
             Optional<NutritionProduct> nutrition = cache.fetch(normalize(name));
             if (!nutrition.isPresent()) {
-                nutrition = geNutritionProductFromRepo(normalize(raw));
+                nutrition = geNutritionProductFromRepo(normalize(request.product_name()));
                 if (!nutrition.isPresent()){
-                    log.warn("Item not found " + raw);
-                    throw new IllegalArgumentException("Item not found: " + raw);
+                    log.warn("Item not found " + request.product_name());
+                    throw new IllegalArgumentException("Item not found: " + request.product_name());
                 } else {
                     // Set the name to lower case so we will match in the cache
                     nutrition.get().setName(normalize(nutrition.get().getName()));
                     cache.store(nutrition.get());
-
+    
                 }
             }
-            
-        // Compute amount and unit before converting to response
-        return convertToResponse(nutrition.get(), fields, amount);
-
-        } catch (Exception e) {
-            throw e;
+    
+            // Compute amount and unit before converting to response
+            return convertToResponse(nutrition.get(), request.fields(), request.amount());
         }
+
+    public void validateRequest(ProductRequest request){
+
+        if(request.product_name() == null || request.product_name().isBlank()){
+            throw new ValidationException("No product provided");
+        }
+        if(request.amount() == null){
+            throw new ValidationException("No amount provided. Amount must be between 1 and 10000");
+            // Return 404
+        }
+        // Add validation for request?
+        if(request.amount() > 10000 || request.amount() < 1){
+            throw new IllegalArgumentException("Amount needs to be between 1 and 10000. Provided was: " + request.amount());
+        }
+
+
+        if(request.fields().size() < 1){
+            throw new IllegalArgumentException("Atleast one field has to be selected");
+        }
+
+        if(illegalCharactersInString(request.product_name())){
+            throw new IllegalArgumentException("Illegal characters in product name");
+        }
+    }
+
+    public boolean illegalCharactersInString(String product){
+
+        if(product.length() > 1){
+
+            Pattern p = Pattern.compile("[^a-zA-z ]", Pattern.CASE_INSENSITIVE);
+            Matcher m = p.matcher(product);
+            //Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+                        
+            return m.find();
+        }
+        return false;
     }
 
 
@@ -113,6 +148,9 @@ public class NutritionService {
 
     private NutritionResponse convertToResponse(NutritionProduct p, Set<Field> fs, double grams) {
 
+
+        // Implement validation for response
+
         Map<Field, Double> result = new HashMap<>();
 
         if (grams <= 0) {
@@ -126,6 +164,7 @@ public class NutritionService {
             Double value = f.get(p);
             if (value != null){
                 result.put(f, (double) Math.round(value * factor));
+                System.out.println(value*factor);
             }
         }
 
@@ -148,17 +187,12 @@ public class NutritionService {
             for (Field f: Field.values()){                
                 Double value = f.get(p);
                 values_per_field.get(f).add(value);
-            }
-
-            
+            }   
         }
-        
 
         for(Field f : Field.values()){
             List<Double> values = values_per_field.get(f);
             Double medianValue = calculateMedian(values);
-            System.out.print("\nMEDIAN: " + medianValue + " for: " +  f + "\n");
-
 
             switch (f) {
             case CALORIES -> median.setCalories(medianValue);
@@ -202,18 +236,15 @@ public class NutritionService {
     // Unsorted
     private Double calculateMedian(List<Double> data){
 
-        
-
         Double median;
 
         if (data.size() == 1){
             return data.get(0);
         }
-        
-        // Dynamically allocated list for unknown amounts of null values
+
         List<Double> no_nulls_data = new ArrayList<>();
         
-        // Discard nulls!
+        // Discard nulls
         for(int i = 0; i < data.size(); i ++){
             if (data.get(i) != null){
                 no_nulls_data.add(data.get(i));
@@ -227,7 +258,6 @@ public class NutritionService {
         // If null is first item, it throws an exception because it cant sort nulls...
         Collections.sort(no_nulls_data);
 
-        
         median = no_nulls_data.get(no_nulls_data.size()/2);
 
         return median;
@@ -235,23 +265,6 @@ public class NutritionService {
     }
 
 
-/*     public NutritionResponse calculate(NutritionResponse nutrition, double amount, Unit unit) {
-
-        // Validate resource
-        
-        // fetch resource (like oats)
-
-        // return nutritional value
-
-        double grams = convertToGrams(amount, unit);
-
-        double factor = grams / 100.0;
-
-        // TODO: Handle this factor here? Or just return the fetched Nutrition Response, alternatively decide how to convert between units
-        return new NutritionResponse(
-        );
-    }
-    } */
 
 
         // UTILS

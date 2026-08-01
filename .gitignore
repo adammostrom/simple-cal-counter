@@ -9,6 +9,8 @@ openfoodfacts*
 issuetracker*
 /tests/*
 /docs/*
+*.env
+export_vars.sh
 
 ### STS ###
 .apt_generated
@@ -37,3 +39,4 @@ build/
 
 ### VS Code ###
 .vscode/
+run.sh
