@@ -7,9 +7,10 @@ import com.example.demo.models.NutritionResponse;
 @Component
 public class ExternalAPI implements NutritionApi {
 
+
+    // TODO
     @Override
     public NutritionResponse fetch(String name) {
-        // call your external API / DB / mock
         return null;
     }
 }

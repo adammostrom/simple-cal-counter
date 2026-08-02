@@ -17,36 +17,36 @@ public class NutritionProduct {
 
         private int id;
         private String product_name;
-        private Double energy_kcal_100g;
-        private Double fat_100g;
-        private Double saturated_fat_100g;
-        private Double trans_fat_100g;
-        private Double cholesterol_100g;
-        private Double carbohydrates_100g;
-        private Double sugars_100g;
-        private Double added_sugars_100g;
-        private Double sucrose_100g;
-        private Double glucose_100g;
-        private Double fructose_100g;
-        private Double lactose_100g;
-        private Double starch_100g;
-        private Double fiber_100g;
-        private Double proteins_100g;
-        private Double salt_100g;
-        private Double added_salt_100g;
-        private Double sodium_100g;
-        private Double vitamin_c_100g;
-        private Double vitamin_b1_100g;
-        private Double vitamin_b2_100g;
-        private Double vitamin_pp_100g;
-        private Double vitamin_b6_100g;
-        private Double vitamin_b9_100g;
-        private Double vitamin_b12_100g;
-        private Double potassium_100g;
-        private Double calcium_100g;
-        private Double iron_100g;
-        private Double magnesium_100g;
-        private Double zinc_100g;
+        private Double energy_kcal;
+        private Double fat;
+        private Double saturated_fat;
+        private Double trans_fat;
+        private Double cholesterol;
+        private Double carbohydrates;
+        private Double sugars;
+        private Double added_sugars;
+        private Double sucrose;
+        private Double glucose;
+        private Double fructose;
+        private Double lactose;
+        private Double starch;
+        private Double fiber;
+        private Double proteins;
+        private Double salt;
+        private Double added_salt;
+        private Double sodium;
+        private Double vitamin_c;
+        private Double vitamin_b1;
+        private Double vitamin_b2;
+        private Double vitamin_pp;
+        private Double vitamin_b6;
+        private Double vitamin_b9;
+        private Double vitamin_b12;
+        private Double potassium;
+        private Double calcium;
+        private Double iron;
+        private Double magnesium;
+        private Double zinc;
 
     public NutritionProduct(){}
 
@@ -59,40 +59,40 @@ public class NutritionProduct {
         int count = 0;
 
         if (product_name == null) count++;
-        if (energy_kcal_100g == null) count++;
-        if (fat_100g == null) count++;
-        if (saturated_fat_100g == null) count++;
-        if (trans_fat_100g == null) count++;
-        if (cholesterol_100g == null) count++;
-        if (carbohydrates_100g == null) count++;
+        if (energy_kcal == null) count++;
+        if (fat == null) count++;
+        if (saturated_fat == null) count++;
+        if (trans_fat == null) count++;
+        if (cholesterol == null) count++;
+        if (carbohydrates == null) count++;
         
-        if (sugars_100g == null) count++;
-        if (added_sugars_100g == null) count++;
-        if (sucrose_100g == null) count++;
-        if (glucose_100g == null) count++;
-        if (fructose_100g == null) count++;
-        if (lactose_100g == null) count++;
+        if (sugars == null) count++;
+        if (added_sugars == null) count++;
+        if (sucrose == null) count++;
+        if (glucose == null) count++;
+        if (fructose == null) count++;
+        if (lactose == null) count++;
 
-        if (starch_100g == null) count++;  
-        if (fiber_100g == null) count++;
-        if (proteins_100g == null) count++;
-        if (salt_100g == null) count++;
-        if (added_salt_100g == null) count++;
-        if (sodium_100g == null) count++;
-        if (vitamin_c_100g == null) count++;
+        if (starch == null) count++;  
+        if (fiber == null) count++;
+        if (proteins == null) count++;
+        if (salt == null) count++;
+        if (added_salt == null) count++;
+        if (sodium == null) count++;
+        if (vitamin_c == null) count++;
         
-        if (vitamin_b1_100g == null) count++;  
-        if (vitamin_b2_100g == null) count++;
-        if (vitamin_pp_100g == null) count++;
-        if (vitamin_b6_100g == null) count++;
-        if (vitamin_b9_100g == null) count++;
-        if (vitamin_b12_100g == null) count++;
-        if (potassium_100g == null) count++;
-        if (calcium_100g == null) count++;
+        if (vitamin_b1 == null) count++;  
+        if (vitamin_b2 == null) count++;
+        if (vitamin_pp == null) count++;
+        if (vitamin_b6 == null) count++;
+        if (vitamin_b9 == null) count++;
+        if (vitamin_b12 == null) count++;
+        if (potassium == null) count++;
+        if (calcium == null) count++;
 
-        if (iron_100g == null) count++;
-        if (magnesium_100g == null) count++;
-        if (zinc_100g == null) count++;
+        if (iron == null) count++;
+        if (magnesium == null) count++;
+        if (zinc == null) count++;
 
     return count;
 }
@@ -115,94 +115,94 @@ public class NutritionProduct {
         this.product_name = name;
     }   
     public void setCalories(Double calories) {
-        this.energy_kcal_100g = calories;
+        this.energy_kcal = calories;
     } 
     public void setFat(Double fat) {
-        this.fat_100g = fat;
+        this.fat = fat;
     }
     public void setSatFat(Double saturated_fat) {
-        this.saturated_fat_100g = saturated_fat; 
+        this.saturated_fat = saturated_fat; 
     }
     public void setTransFat(Double trans_fat) {
-        this.trans_fat_100g = trans_fat; 
+        this.trans_fat = trans_fat; 
     }
     public void setCholesterol(Double cholesterol) {
-        this.cholesterol_100g = cholesterol;
+        this.cholesterol = cholesterol;
     }
     public void setCarbs(Double carbs) {
-        this.carbohydrates_100g = carbs;
+        this.carbohydrates = carbs;
     }
     public void setSugars(Double sugars) {
-        this.sugars_100g = sugars; 
+        this.sugars = sugars; 
     }
     public void setAddedSugars(Double added_sugars) {
-        this.added_sugars_100g = added_sugars;
+        this.added_sugars = added_sugars;
     }
     public void setSucrose(Double sucrose) {
-        this.sucrose_100g = sucrose;
+        this.sucrose = sucrose;
     }
     public void setGlucose(Double glucose) {
-        this.glucose_100g = glucose;
+        this.glucose = glucose;
     }
     public void setFructose(Double fructose) {
-        this.fructose_100g = fructose;
+        this.fructose = fructose;
     }
     public void setLactose(Double lactose) {
-        this.lactose_100g = lactose;
+        this.lactose = lactose;
     }
     public void setStarch(Double starch) {
-        this.starch_100g = starch;
+        this.starch = starch;
     }
     public void setFiber(Double fiber){
-        this.fiber_100g = fiber;
+        this.fiber = fiber;
      }
     public void setProtein(Double proteins) {
-        this.proteins_100g = proteins;
+        this.proteins = proteins;
     }
     public void setSalt(Double salt) {
-        this.salt_100g = salt;
+        this.salt = salt;
     }
     public void setAddedSalt(Double added_salt) {
-        this.added_salt_100g  = added_salt;
+        this.added_salt  = added_salt;
     }
     public void setSodium(Double sodium){
-        this.sodium_100g  = sodium;
+        this.sodium  = sodium;
     }
     public void setVitaminC(Double vitamin_c) {
-        this.vitamin_c_100g  = vitamin_c;
+        this.vitamin_c  = vitamin_c;
     }
     public void setVitaminB1(Double vitamin_b1) {
-        this.vitamin_b1_100g = vitamin_b1;
+        this.vitamin_b1 = vitamin_b1;
     }
     public void setVitaminB2(Double vitamin_b2) {
-        this.vitamin_b2_100g = vitamin_b2;
+        this.vitamin_b2 = vitamin_b2;
     }
     public void setVitaminPP(Double vitamin_pp) {
-        this.vitamin_pp_100g = vitamin_pp;
+        this.vitamin_pp = vitamin_pp;
     }
     public void setVitaminB6(Double vitamin_b6) {
-        this.vitamin_b6_100g = vitamin_b6;
+        this.vitamin_b6 = vitamin_b6;
     }
     public void setVitaminB9(Double vitamin_b9) {
-        this.vitamin_b9_100g = vitamin_b9;
+        this.vitamin_b9 = vitamin_b9;
     }
     public void setVitaminB12(Double vitamin_b12) {
-        this.vitamin_b12_100g = vitamin_b12;
+        this.vitamin_b12 = vitamin_b12;
     }
     public void setPotassium(Double potassium){
-        this.potassium_100g = potassium;
+        this.potassium = potassium;
     }
     public void setCalcium(Double calcium) {
-        this.calcium_100g = calcium;
+        this.calcium = calcium;
     }
     public void setIron(Double iron) {
-        this.iron_100g = iron;
+        this.iron = iron;
     }
     public void setMagnesium(Double magnesium) {
-        this.magnesium_100g = magnesium;
+        this.magnesium = magnesium;
     }
     public void setZinc(Double zinc) {
-        this.zinc_100g = zinc;
+        this.zinc = zinc;
     }
 
 
@@ -214,93 +214,93 @@ public class NutritionProduct {
         return this.product_name;
     }
     public Double getEnergy_kcal(){
-        return this.energy_kcal_100g;
+        return this.energy_kcal;
     }
     public Double getFat(){
-        return this.fat_100g;
+        return this.fat;
     }
     public Double getSaturated_fat(){
-        return this.saturated_fat_100g;
+        return this.saturated_fat;
     }
     public Double getTrans_fat(){
-        return this.trans_fat_100g;
+        return this.trans_fat;
     }
     public Double getCholesterol(){
-        return this.cholesterol_100g;
+        return this.cholesterol;
     }
     public Double getCarbohydrates(){
-        return this.carbohydrates_100g;
+        return this.carbohydrates;
     }
     public Double getSugars(){
-        return this.sugars_100g;
+        return this.sugars;
     }
     public Double getAdded_sugars(){
-        return this.added_sugars_100g;
+        return this.added_sugars;
     }
     public Double getSucrose(){
-        return this.sucrose_100g;
+        return this.sucrose;
     }
     public Double getGlucose(){
-        return this.glucose_100g;
+        return this.glucose;
     }
     public Double getFructose(){
-        return this.fructose_100g;
+        return this.fructose;
     }
     public Double getLactose(){
-        return this.lactose_100g;
+        return this.lactose;
     }
     public Double getStarch(){
-        return this.starch_100g;
+        return this.starch;
     }
     public Double getFiber(){
-        return this.fiber_100g;
+        return this.fiber;
     }
     public Double getProteins(){
-        return this.proteins_100g;
+        return this.proteins;
     }
     public Double getSalt(){
-        return this.salt_100g;
+        return this.salt;
     }
     public Double getAdded_salt(){
-        return this.added_salt_100g;
+        return this.added_salt;
     }
     public Double getSodium(){
-        return this.sodium_100g;
+        return this.sodium;
     }
     public Double getVitamin_c(){
-        return this.vitamin_c_100g;
+        return this.vitamin_c;
     }
     public Double getVitamin_b1(){
-        return this.vitamin_b1_100g;
+        return this.vitamin_b1;
     }
     public Double getVitamin_b2(){
-        return this.vitamin_b2_100g;
+        return this.vitamin_b2;
     }
     public Double getVitamin_pp(){
-        return this.vitamin_pp_100g;
+        return this.vitamin_pp;
     }
     public Double getVitamin_b6(){
-        return this.vitamin_b6_100g;
+        return this.vitamin_b6;
     }
     public Double getVitamin_b9(){
-        return this.vitamin_b9_100g;
+        return this.vitamin_b9;
     }
     public Double getVitamin_b12(){
-        return this.vitamin_b12_100g;
+        return this.vitamin_b12;
     }
     public Double getPotassium(){
-        return this.potassium_100g;
+        return this.potassium;
     }
     public Double getCalcium(){
-        return this.calcium_100g;
+        return this.calcium;
     }
     public Double getIron(){
-        return this.iron_100g;
+        return this.iron;
     }
     public Double getMagnesium(){
-        return this.magnesium_100g;
+        return this.magnesium;
     }
     public Double getZinc(){
-        return this.zinc_100g;
+        return this.zinc;
     }
 }

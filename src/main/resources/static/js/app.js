@@ -60,7 +60,7 @@ async function searchNutrition() {
             throw new Error(data.message);
         }
 
-        displayResults(data);
+        displayNutrition(data, productAmount);
 
     } catch (error) {
         showError(error.message);
@@ -76,16 +76,56 @@ function getSelectedFields() {
 }
 
 
-function displayResults(data) {
-    let html = `<h3>${data.name}</h3>`;
+function displayNutrition(data, productAmount) {
+
+    const box = document.getElementById("nutrition-result");
+
+    // clear previous result
+    box.innerHTML = "";
+
+    let rows = "";
 
     for (const [field, value] of Object.entries(data.fields)) {
-        html += `<p>${field}: ${value}</p>`;
+            rows += `
+                <tr>
+                    <td>${field}</td>
+                    <td>${data.fields[field]}</td>
+                </tr>
+            `;
     }
+    
 
-    document.getElementById("result").innerHTML = html;
+
+    box.innerHTML = `
+        <div class="nutrition-title">
+            Nutrition Facts
+        </div>
+
+        <div class="nutrition-serving">
+            Serving Size ${productAmount} g
+        </div>
+
+        <table class="nutrition-table">
+            <thead>
+                <tr>
+                    <th>Nutrient</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                ${rows}
+            </tbody>
+        </table>
+
+        <div class="nutrition-footer">
+            Values are based on available nutritional data.
+        </div>
+        <div class="nutrition-footer">
+        Source of all nutritional data: https://in.openfoodfacts.org/
+        </div>
+    `;
 }
-
 
 function showError(message) {
     const errorBox = document.getElementById("error-message");

@@ -14,12 +14,7 @@ import com.example.demo.models.NutritionProduct;
 @Repository
 public class FoodRepository implements NutritionRepository{
     
-
-
-    
     private final JdbcTemplate jdbc;
-
-
     
     public FoodRepository(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -31,7 +26,7 @@ public class FoodRepository implements NutritionRepository{
         StringBuilder placeholders = new StringBuilder("?");
 
         for(Field f : Field.values()){
-            fields.append(",").append(f.getDbColumn());
+            fields.append(",").append(f.getDbColumn()).append("_100g");
             placeholders.append(",?");
         }
 

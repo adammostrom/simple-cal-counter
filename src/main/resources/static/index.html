@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<main>
 <head>
     <title>Simple Nutrition</title>
     <link rel="stylesheet" href="/css/style.css">
@@ -19,6 +20,7 @@
     <input
         type="number"
         id="amount"
+        value="100"
         placeholder="Input Amount (result based on per 100g)">
 <fieldset class="nutrition-grid">
     <legend>Select Nutrition Values</legend>
@@ -56,9 +58,12 @@
 </fieldset>
 
 
-<div id="result"></div>
+<div id="nutrition-result" class="nutrition-box">
+    <!-- Results inserted here -->
+</div>
 
 <div id="error-message"></div>
     <script src="/js/app.js"></script>
 </body>
+</main>
 </html>

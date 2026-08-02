@@ -1,9 +1,11 @@
 package com.example.demo.exception;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -41,5 +43,10 @@ public class GlobalExceptionHandler extends RuntimeException {
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponse> handleValidatioNFailed(ValidationException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, ex.getMessage(), LocalDateTime.now()));
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<?> handleBadJson(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body(Map.of("status", 400,"message", "Invalid request data"));
     }
 }

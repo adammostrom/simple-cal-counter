@@ -15,12 +15,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,11 @@ import com.example.demo.models.ProductRequest;
 @Service
 public class NutritionService {
 
+    // Limits
+    private static final int MAX_PRODUCT_NAME_LENGTH = 100;
+    private static final int MAX_FIELDS = Field.values().length;
+    private static final int MAX_AMOUNT = 1000;
+
 
     private static final Logger log = LoggerFactory.getLogger(NutritionService.class);
 
@@ -54,8 +61,6 @@ public class NutritionService {
         this.api = api;
     }
 
-
-    // TODO: Maybe add nutritionrequest here instead (POST request) with fields to get
     public NutritionResponse get(ProductRequest request) {
     
             validateRequest(request);
@@ -85,23 +90,32 @@ public class NutritionService {
         if(request.product_name() == null || request.product_name().isBlank()){
             throw new ValidationException("No product provided");
         }
-        if(request.amount() == null){
-            throw new ValidationException("No amount provided. Amount must be between 1 and 10000");
-            // Return 404
-        }
-        // Add validation for request?
-        if(request.amount() > 10000 || request.amount() < 1){
-            throw new IllegalArgumentException("Amount needs to be between 1 and 10000. Provided was: " + request.amount());
-        }
 
-
-        if(request.fields().size() < 1){
-            throw new IllegalArgumentException("Atleast one field has to be selected");
-        }
-
-        if(illegalCharactersInString(request.product_name())){
+        if(illegalCharactersInString(request.product_name()) || !(request.product_name().matches("[a-zA-Z0-9äöåÄÖÅ\\s\\-]+"))){ // If name contains symbols other than the regex
             throw new IllegalArgumentException("Illegal characters in product name");
         }
+
+        if(request.product_name().length() > MAX_PRODUCT_NAME_LENGTH){
+           throw new ValidationException("Product name too long");
+        }
+
+        if(request.amount() == null){
+            throw new ValidationException("No amount provided. Amount must be between 1 and 10000");
+        }
+
+        if(request.amount() > MAX_AMOUNT || request.amount() < 1){
+            throw new IllegalArgumentException("Amount needs to be between 1 and " + MAX_AMOUNT +".  Provided was: " + request.amount());
+        }
+
+        if (request.fields() == null || request.fields().isEmpty()) {
+            throw new ValidationException("At least one field has to be selected");
+        }
+
+        if(request.fields().size() > MAX_FIELDS){
+            throw new ValidationException("Too many fields in request. Maximum amount of fields is: " + MAX_FIELDS);
+        }
+         
+
     }
 
     public boolean illegalCharactersInString(String product){
@@ -148,27 +162,33 @@ public class NutritionService {
 
     private NutritionResponse convertToResponse(NutritionProduct p, Set<Field> fs, double grams) {
 
-
-        // Implement validation for response
-
         Map<Field, Double> result = new HashMap<>();
 
         if (grams <= 0) {
-           grams = 100; // Default to 100
-           // throw new IllegalArgumentException("grams must be > 0");
+           grams = 100;
         }
 
         double factor = grams / 100.0;
 
         for (Field f : fs) {
             Double value = f.get(p);
+
             if (value != null){
                 result.put(f, (double) Math.round(value * factor));
-                System.out.println(value*factor);
             }
         }
 
-        return new NutritionResponse(p.getName(), result);
+        Map<Field, Double> sortedFields = result.entrySet()
+            .stream()
+            .sorted(Map.Entry.comparingByKey())
+            .collect(Collectors.toMap(
+                    Map.Entry::getKey,
+                    Map.Entry::getValue,
+                    (a, b) -> a,
+                    LinkedHashMap::new
+            ));
+
+        return new NutritionResponse(p.getName(), sortedFields);
     }
 
 

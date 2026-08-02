@@ -12,8 +12,6 @@ Example response:
   "message": "User with id 123 not found",
   "timestamp": localtime
 }
-
-
 */
 public record ErrorResponse(
         int status,
