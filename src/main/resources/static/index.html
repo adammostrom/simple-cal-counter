@@ -6,23 +6,46 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
-
+<header>
     <h1>Simple Nutrition Search</h1>
-    <div class="search-bar">
+
+    <p class="tagline">
+        Nutrition information without the clutter.
+    </p>
+
+    <p>
+        Search for a food and instantly see its nutritional values.
+        No account, no tracking, no data harvesting, no subscriptions, no memberships, no micropayments, no demands.
+    </p>
+</header>
+
+
+<section class="search-container">
+
     <input
         type="text"
         id="product"
         placeholder="Search food">
-    
+
+    <div class="amount">
+        <label for="amount">Amount (g)</label>
+        <input
+            type="number"
+            id="amount"
+            value="100">
+    </div>
+
     <button onclick="searchNutrition()">
         Search
     </button>
-    <input
-        type="number"
-        id="amount"
-        value="100"
-        placeholder="Input Amount (result based on per 100g)">
-    </div>
+
+    <button onclick="resetForm()" class="secondary">
+        Reset
+    </button>
+
+</section>
+
+
 <fieldset class="nutrition-grid">
     <legend>Select Nutrition Values</legend>
 

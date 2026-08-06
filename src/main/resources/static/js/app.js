@@ -109,7 +109,7 @@ function displayNutrition(data, productAmount) {
             <thead>
                 <tr>
                     <th>Nutrient</th>
-                    <th>Amount</th>
+                    <th>Amount (in grams)</th>
                 </tr>
             </thead>
 
@@ -139,4 +139,24 @@ function clearError() {
 
     errorBox.textContent = "";
     errorBox.style.display = "none";
+}
+
+function resetForm() {
+
+    document.getElementById("product").value = "";
+
+    document.getElementById("amount").value = 100;
+
+    staticFields.forEach(field => {
+        const checkbox = document.getElementById(field);
+
+        if (checkbox) {
+            checkbox.checked = [
+                "calories"
+            ].includes(field);
+        }
+    });
+
+    document.getElementById("nutrition-result").innerHTML = "";
+    clearError();
 }
