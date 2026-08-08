@@ -57,7 +57,7 @@ async function searchNutrition() {
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.message);
+            throw new Error(data.error || data.message || "Something went wrong.");
         }
 
         displayNutrition(data, productAmount);
@@ -160,3 +160,4 @@ function resetForm() {
     document.getElementById("nutrition-result").innerHTML = "";
     clearError();
 }
+

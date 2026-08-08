@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -49,4 +50,10 @@ public class GlobalExceptionHandler extends RuntimeException {
     public ResponseEntity<?> handleBadJson(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest().body(Map.of("status", 400,"message", "Invalid request data"));
     }
+
+    @ExceptionHandler(CannotGetJdbcConnectionException.class)
+    public ResponseEntity<?> handleDatabaseError() {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("error", "Nutrition service temporarily unavailable"));
+    }
+
 }
