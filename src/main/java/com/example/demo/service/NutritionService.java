@@ -124,7 +124,6 @@ public class NutritionService {
 
             Pattern p = Pattern.compile("[^a-zA-z ]", Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(product);
-            //Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
                         
             return m.find();
         }
@@ -156,7 +155,7 @@ public class NutritionService {
             // TODO logger: source (service), label (error), message(failed to store in db).
             log.error("Failed to store median entry for {}", raw_name);
         }
-        writeToLog(nutritions, raw_name, nutrition);
+        //writeToLog(nutritions, raw_name, nutrition); // For Dev
         return Optional.of(nutrition); 
     }
 

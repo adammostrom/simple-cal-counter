@@ -41,3 +41,4 @@ build/
 .vscode/
 run.sh
 /tests
+/tests/
