@@ -42,3 +42,4 @@ build/
 run.sh
 /tests
 /tests/
+nutritionapp2.0.jar nutritionPackage.jar
