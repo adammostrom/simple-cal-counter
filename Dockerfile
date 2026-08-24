@@ -2,7 +2,7 @@ FROM docker.io/eclipse-temurin:21-jre
 
 WORKDIR /simpleNutrition
 
-COPY nutritionPackage.jar nutrition.jar
+COPY nutritionapp1.0.jar nutrition.jar
 
 USER 1000
 

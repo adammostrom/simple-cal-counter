@@ -38,28 +38,34 @@ public class GlobalExceptionHandler extends RuntimeException {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException ex){
+        log.error(ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(404, ex.getMessage(), LocalDateTime.now()));
     }
     
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleUnexpected(Exception ex){
-        log.error(ex.getMessage());
+        log.error(ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponse(500, "Internal server error", LocalDateTime.now()));
     }
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponse> handleValidatioNFailed(ValidationException ex){
+        log.error(ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(400, ex.getMessage(), LocalDateTime.now()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<?> handleBadJson(HttpMessageNotReadableException ex) {
+        log.error(ex.getMessage(), ex);
         return ResponseEntity.badRequest().body(Map.of("status", 400,"message", "Invalid request data"));
     }
 
-    @ExceptionHandler(CannotGetJdbcConnectionException.class)
-    public ResponseEntity<?> handleDatabaseError() {
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("error", "Nutrition service temporarily unavailable"));
+    public ResponseEntity<?> handleDatabaseError(CannotGetJdbcConnectionException ex) {
+    log.error("Database connection failed", ex);
+
+    return ResponseEntity
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(Map.of("error", "Nutrition service temporarily unavailable"));
     }
 }
