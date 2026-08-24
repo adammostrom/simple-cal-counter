@@ -44,3 +44,4 @@ run.sh
 /tests/
 nutritionapp2.0.jar nutritionPackage.jar
 *.jar
+openfood.sql
